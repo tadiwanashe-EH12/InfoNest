@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 
 process.on('uncaughtException', err => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
@@ -35,4 +37,15 @@ process.on('unhandledRejection', err => {
   server.close(() => {
     process.exit(1);
   });
+});
+const directories = [
+  path.join(__dirname, 'logs'),
+  path.join(__dirname, 'uploads') // if you have file uploads
+];
+
+directories.forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`Created directory: ${dir}`);
+  }
 });

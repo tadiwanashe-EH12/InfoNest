@@ -1,3 +1,5 @@
+const logger = require('./utils/logger');
+const errorHandler = require('./middleware/error');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -27,7 +29,8 @@ app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+  app.use(morgan('dev', { stream: logger.stream }));
+  app.use(errorHandler);
 }
 
 // Limit requests from same API
