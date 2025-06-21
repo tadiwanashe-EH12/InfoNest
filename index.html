@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Info Nest</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Login Section -->
+  <div class="login-section" id="loginSection">
+    <h1>Info Nest Login</h1>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Log In</button>
+    </form>
+  </div>
+
+  <!-- Main App -->
+  <div class="app" id="appSection" style="display:none;">
+    <nav class="sidebar">
+      <h2>LuxLib</h2>
+      <ul>
+        <li><a href="#" class="active" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('members')">Members</a></li>
+        <li><a href="#" onclick="showSection('books')">Books</a></li>
+        <li><a href="#" onclick="showSection('lending')">Lending</a></li>
+        <li><a href="#" onclick="showSection('fines')">Fines</a></li>
+        <li><a href="#" onclick="showSection('reports')">Reports</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <section id="dashboardSection">
+        <h1>Welcome, Librarian</h1>
+        <p>You're viewing the LuxLib Dashboard.</p>
+      </section>
+
+      <section id="membersSection" style="display:none;">
+        <h2>Manage Members</h2>
+        <form id="memberForm">
+          <input type="text" placeholder="Full Name" required />
+          <input type="email" placeholder="Email" required />
+          <input type="tel" placeholder="Phone" required />
+          <button type="submit">Add Member</button>
+        </form>
+        <div id="memberList"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Book Management Section -->
+<section id="booksSection" style="display:none;">
+  <h2>Book Inventory</h2>
+  <form id="bookForm">
+    <input type="text" placeholder="Title" required />
+    <input type="text" placeholder="Author" required />
+    <input type="text" placeholder="ISBN" required />
+    <button type="submit">Add Book</button>
+  </form>
+  <div id="bookList"></div>
+</section>
+
+<!-- Lending Section -->
+<section id="lendingSection" style="display:none;">
+  <h2>Manage Lending</h2>
+  <form id="lendForm">
+    <input type="text" placeholder="Member Name" required />
+    <input type="text" placeholder="Book Title" required />
+    <button type="submit">Lend Book</button>
+  </form>
+  <div id="loanList"></div>
+</section>
+
+<!-- Fines Section -->
+<section id="finesSection" style="display:none;">
+  <h2>Unpaid Fines</h2>
+  <form id="fineForm">
+    <input type="text" placeholder="Member Name" required />
+    <input type="number" placeholder="Amount ($)" required />
+    <button type="submit">Record Fine</button>
+  </form>
+  <div id="fineList"></div>
+</section>
+
+<!-- Reports Section -->
+<section id="reportsSection" style="display:none;">
+  <h2>Active Loans Report</h2>
+  <div id="activeLoansReport"></div>
+</section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
