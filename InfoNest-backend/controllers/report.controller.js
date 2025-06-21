@@ -15,3 +15,27 @@ exports.getActiveLoans = async (req, res) => {
 
   res.json(formatted);
 };
+
+exports.getMemberHistory = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const loans = await Loan.find({ member: id })
+      .populate('bookCopy')
+      .populate('fine')
+      .sort({ checkoutDate: -1 });
+
+    const history = loans.map((loan) => ({
+      bookCopyId: loan.bookCopy.copyId,
+      checkoutDate: loan.checkoutDate,
+      returnDate: loan.returnDate,
+      fine: loan.fine ? loan.fine.amount : 0,
+      paid: loan.fine ? loan.fine.status === 'Paid' : true,
+    }));
+
+    res.json({ memberId: id, history });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+

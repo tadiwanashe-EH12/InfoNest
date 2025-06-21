@@ -20,14 +20,23 @@
   "homepage": "https://github.com/tadiwanashe-EH12/InfoNest#readme",
   "description": "",
   "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
+    "chart.js": "^4.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "framer-motion": "^12.18.1",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "postcss": "^8.5.6",
+    "react-chartjs-2": "^5.3.0",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
+    "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

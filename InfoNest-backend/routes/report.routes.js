@@ -5,3 +5,4 @@ const protect = require('../middleware/auth');
 router.get('/active-loans', protect, getActiveLoans);
 
 module.exports = router;
+router.get('/member-history/:id', protect, getMemberHistory);
