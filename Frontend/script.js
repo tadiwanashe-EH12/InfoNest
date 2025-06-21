@@ -27,6 +27,17 @@ function showSection(section) {
   }
 }
 
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.classList.toggle('show');
+// Toggle sidebar
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('show');
+});
+
+}
+
+
 // Member Management
 document.getElementById('memberForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -85,7 +96,6 @@ document.getElementById('lendForm').addEventListener('submit', function (e) {
   document.getElementById('loanList').appendChild(div);
   this.reset();
 });
-
 // Fines Module
 document.getElementById('fineForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -124,3 +134,4 @@ function updateReports() {
 document.getElementById('lendForm').addEventListener('submit', () => {
   setTimeout(updateReports, 100);
 });
+

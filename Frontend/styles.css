@@ -1,0 +1,407 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(to right, #090979, #00d4ff);
+  color: #222;
+  margin: 0;
+}
+
+
+/* Login */
+.login-section {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 1.2s ease-out;
+}
+
+.nest-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+
+.login-card input, .login-card button {
+  display: block;
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1.1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+}
+
+.login-card input {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.login-card button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.login-section form {
+  background: rgba(0,0,0,0.4);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+.login-section input, .login-section button {
+  display: block;
+  width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+}
+
+.login-section button {
+  background: #00d4ff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #091540;
+}
+
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.glass-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  color: #fff;
+  background: linear-gradient(145deg, rgba(0,212,255,0.3), rgba(0,0,0,0.2));
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: transform 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: scale(1.03);
+}
+
+.metric {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.alert-card {
+  background: linear-gradient(145deg, #ff5858a0, #ff000020);
+  border: 1px solid rgba(255,100,100,0.5);
+}
+@media screen and (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .glass-card {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  .metric {
+    font-size: 1.4rem;
+  }
+
+  .login-card {
+    width: 90%;
+  }
+}
+
+/* App Layout */
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #091540;
+  padding: 2rem 1rem;
+  color: white;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+  background: #00d4ff;
+  color: #000;
+}
+
+.content {
+  padding: 2rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+form#memberForm {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+#memberForm input, #memberForm button {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#memberForm button {
+  background: #00d4ff;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#memberForm button:hover {
+  background: #00b6d4;
+}
+
+#memberList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.member-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+}
+#bookForm, #lendForm {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+#bookForm input, #lendForm input, #bookForm button, #lendForm button {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#bookForm button, #lendForm button {
+  background: #00d4ff;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+
+#bookForm button:hover, #lendForm button:hover {
+  background: #00b6d4;
+}
+
+#bookList, #loanList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.book-card, .loan-card {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+#fineForm, #activeLoansReport {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+#fineList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.fine-card {
+  background: #ffe2e2;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 200px;
+}
+
+.overdue {
+  color: red;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -220px;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+  .sidebar.show {
+    left: 0;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .content {
+    margin-left: 0 !important;
+    padding: 1rem;
+  }
+  .login-card {
+    width: 90%;
+    padding: 2rem 1rem;
+  }
+  .widget-grid {
+    grid-template-columns: 1fr;
+  }
+  .glass-card {
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 1024px) {
+  .widget-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  form {
+    padding: 1.2rem;
+  }
+
+  .glass-card, .member-card, .book-card, .loan-card, .fine-card {
+    font-size: 0.95rem;
+  }
+}
+/* Sidebar Default (Desktop) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background: #091540;
+  color: #fff;
+  padding: 2rem 1rem;
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+/* Mobile Hidden State */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -240px;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .content {
+    margin-left: 0 !important;
+  }
+}

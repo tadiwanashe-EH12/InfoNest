@@ -4,23 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Info Nest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Login Section -->
-  <div class="login-section" id="loginSection">
-    <h1>Info Nest Login</h1>
+
+    <!-- Mobile Hamburger Menu -->
+<div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+  <!-- Enhanced Login Section -->
+<div class="login-section" id="loginSection">
+  <div class="login-card">
+    <h1 class="nest-title">Welcome to Info Nest</h1>
+    <p class="subtitle">Elevated Digital Libraries</p>
     <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required />
+      <input type="email" id="email" placeholder="Email Address" required />
       <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Log In</button>
+      <button type="submit">Login</button>
     </form>
   </div>
+</div>
 
   <!-- Main App -->
   <div class="app" id="appSection" style="display:none;">
     <nav class="sidebar">
-      <h2>LuxLib</h2>
+      <h2>Info Nest</h2>
       <ul>
         <li><a href="#" class="active" onclick="showSection('dashboard')">Dashboard</a></li>
         <li><a href="#" onclick="showSection('members')">Members</a></li>
@@ -33,10 +41,28 @@
 
     <main class="content">
       <section id="dashboardSection">
-        <h1>Welcome, Librarian</h1>
-        <p>You're viewing the LuxLib Dashboard.</p>
-      </section>
+  <h1 class="page-title">📚 Info Nest Overview</h1>
+  <div class="widget-grid">
+    <div class="glass-card">
+      <h3>📖 Total Books</h3>
+      <p class="metric" id="bookCount">124</p>
+    </div>
+    <div class="glass-card">
+      <h3>🧑‍💼 Members</h3>
+      <p class="metric" id="memberCount">58</p>
+    </div>
+    <div class="glass-card">
+      <h3>📅 Active Loans</h3>
+      <p class="metric" id="loanCount">17</p>
+    </div>
+    <div class="glass-card alert-card">
+      <h3>⚠️ Overdue</h3>
+      <p class="metric" id="overdueCount">3</p>
+    </div>
+  </div>
+</section>
 
+    
       <section id="membersSection" style="display:none;">
         <h2>Manage Members</h2>
         <form id="memberForm">
@@ -47,10 +73,8 @@
         </form>
         <div id="memberList"></div>
       </section>
-    </main>
-  </div>
 
-  <!-- Book Management Section -->
+      <!-- Book Management Section -->
 <section id="booksSection" style="display:none;">
   <h2>Book Inventory</h2>
   <form id="bookForm">
@@ -90,6 +114,8 @@
   <div id="activeLoansReport"></div>
 </section>
 
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
