@@ -38,4 +38,16 @@ exports.deleteBook = async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: 'Delete failed', details: err.message });
   }
+  const [copies] = await db.query(
+  'SELECT COUNT(*) AS total FROM book_copies WHERE book_id = ?',
+  [id]
+);
+
+if (copies[0].total > 0) {
+  return res.status(400).json({ message: 'Cannot delete: copies still exist' });
+}
+
+await Book.remove(id);
+res.json({ message: 'Book deleted' });
+
 };

@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Environment variables
+.env
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Database exports
+*.sql
+*.sqlite
+*.db
+
+# Runtime folders
+coverage/
+dist/

@@ -36,6 +36,10 @@ app.use('/api/fines', fineRoutes);
 const reportRoutes = require('./routes/reportRoutes');
 app.use('/api/reports', reportRoutes);
 
+// Copy routes
+const copyRoutes = require('./routes/copyRoutes');
+app.use('/api/copies', copyRoutes);
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
