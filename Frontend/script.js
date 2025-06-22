@@ -1,16 +1,47 @@
 // Login Logic
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  const email = this.email.value;
+  const password = this.password.value;
 
-  if (email === 'librarian@library.com' && password === 'SecureLib@123') {
+  const response = await fetch('http://localhost:3000/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await response.json();
+  if (response.ok) {
     document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('appSection').style.display = 'flex';
+    document.getElementById('appSection').style.display = 'block';
   } else {
-    alert('Incorrect credentials');
+    alert(data.message || 'Login failed');
   }
 });
+
+async function loadMembers() {
+  try {
+    const res = await fetch('http://localhost:3000/api/members');
+    const members = await res.json();
+
+    const container = document.getElementById('memberList');
+    container.innerHTML = ''; // Clear previous list
+
+    members.forEach(member => {
+      const div = document.createElement('div');
+      div.className = 'member-card';
+      div.innerHTML = `
+        <h4>${member.full_name}</h4>
+        <p>Email: ${member.email}</p>
+        <p>Phone: ${member.phone}</p>
+        <p>Joined: ${new Date(member.membership_date).toLocaleDateString()}</p>
+      `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error('Failed to load members:', err);
+  }
+}
 
 // Navigation
 function showSection(section) {
@@ -21,7 +52,11 @@ function showSection(section) {
   if (section === 'dashboard') {
     document.getElementById('dashboardSection').style.display = 'block';
     document.querySelectorAll('.sidebar a')[0].classList.add('active');
-  } else if (section === 'members') {
+  } 
+  if (sectionId === 'members') {
+  loadMembers();
+}
+else if (section === 'members') {
     document.getElementById('membersSection').style.display = 'block';
     document.querySelectorAll('.sidebar a')[1].classList.add('active');
   }
@@ -30,11 +65,6 @@ function showSection(section) {
 function toggleSidebar() {
   const sidebar = document.querySelector('.sidebar');
   sidebar.classList.toggle('show');
-// Toggle sidebar
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('sidebar').classList.toggle('show');
-});
-
 }
 
 

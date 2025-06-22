@@ -373,35 +373,3 @@ form#memberForm {
     font-size: 0.95rem;
   }
 }
-/* Sidebar Default (Desktop) */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 220px;
-  height: 100vh;
-  background: #091540;
-  color: #fff;
-  padding: 2rem 1rem;
-  transition: left 0.3s ease;
-  z-index: 999;
-}
-
-/* Mobile Hidden State */
-@media (max-width: 768px) {
-  .sidebar {
-    left: -240px;
-  }
-
-  .sidebar.show {
-    left: 0;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .content {
-    margin-left: 0 !important;
-  }
-}
