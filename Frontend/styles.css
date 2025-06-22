@@ -373,3 +373,37 @@ form#memberForm {
     font-size: 0.95rem;
   }
 }
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.report-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.report-card.overdue {
+  border-left: 6px solid crimson;
+}
+
+.report-card.fine {
+  border-left: 6px solid orange;
+}
+#memberHistorySelect {
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 400px;
+}
+
+.report-card.history {
+  border-left: 6px solid #0072ff;
+}

@@ -111,12 +111,29 @@
 <!-- Reports Section -->
 <section id="reportsSection" style="display:none;">
   <h2>Active Loans Report</h2>
-  <div id="activeLoansReport"></div>
+  <div id="activeLoansReport">
+    <h2>Overdue Loans</h2>
+<div id="overdueReport" class="report-grid"></div>
+
+<h2>Unpaid Fines</h2>
+<div id="fineReport" class="report-grid"></div>
+<h2>Member Loan History</h2>
+<select id="memberHistorySelect">
+  <option value="">Select a member</option>
+</select>
+<div id="memberHistoryList" class="report-grid"></div>
+<button onclick="exportReport('overdue')">Download Overdue CSV</button>
+<button onclick="exportReport('fines')">Download Fines CSV</button>
+
+  </div>
 </section>
 
     </main>
   </div>
 
   <script src="/Frontend/script.js"></script>
+  
+  <div id="toast"></div>
+
 </body>
 </html>
