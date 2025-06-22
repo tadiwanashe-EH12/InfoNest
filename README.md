@@ -68,14 +68,14 @@ InfoNest-Frontend/ ├── index.html ├── style.css └── script.js
 
 ### 1. Backend
 ```bash
-cd LuxLib-Backend
+cd InfoNest-Backend
 npm install
 npm run dev
 
 ---
 Configure .env with your XAMPP MySQL credentials
 
-Import database schema from /sql/init.sql if provided
+Import database schema 
 
 2. Frontend
 Open index.html in your browser via Live Server (VS Code) or localhost
