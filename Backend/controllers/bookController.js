@@ -1,9 +1,10 @@
 const Book = require('../models/Book');
+const db = require('../models/db');
 
 exports.getBooks = async (req, res) => {
   try {
-    const [rows] = await Book.getAll();
-    res.json(rows);
+    const [books] = await Book.getAll();
+    res.json(books);
   } catch (err) {
     res.status(500).json({ error: 'Unable to fetch books' });
   }
@@ -33,21 +34,17 @@ exports.updateBook = async (req, res) => {
 exports.deleteBook = async (req, res) => {
   const id = req.params.id;
   try {
+    const [copies] = await db.query(
+      'SELECT COUNT(*) AS total FROM book_copies WHERE book_id = ?',
+      [id]
+    );
+    if (copies[0].total > 0) {
+      return res.status(400).json({ message: 'Cannot delete: copies still exist' });
+    }
+
     await Book.remove(id);
     res.json({ message: 'Book deleted' });
   } catch (err) {
-    res.status(400).json({ error: 'Delete failed', details: err.message });
+    res.status(500).json({ error: 'Delete failed', details: err.message });
   }
-  const [copies] = await db.query(
-  'SELECT COUNT(*) AS total FROM book_copies WHERE book_id = ?',
-  [id]
-);
-
-if (copies[0].total > 0) {
-  return res.status(400).json({ message: 'Cannot delete: copies still exist' });
-}
-
-await Book.remove(id);
-res.json({ message: 'Book deleted' });
-
 };

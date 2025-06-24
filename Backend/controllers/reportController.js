@@ -1,4 +1,4 @@
-const Report = require('../models/Report');
+const Report = require('../models/reports')
 
 exports.getOverdueLoans = async (req, res) => {
   try {

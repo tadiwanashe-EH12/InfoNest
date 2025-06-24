@@ -13,7 +13,7 @@ app.use('/api/auth', authRoutes);
 
 // Health check
 app.get('/', (req, res) => {
-  res.send('LuxLib Backend API is running');
+  res.send('InfoNest Backend API is running');
 });
 
 // Member routes

@@ -66,10 +66,6 @@ CREATE TABLE `librarians` (
 --
 -- Dumping data for table `librarians`
 --
-
-INSERT INTO `librarians` (`id`, `name`, `email`, `password`) VALUES
-(1, 'Main Admin', 'librarian@library.com', '$2a$10$M3JHqleCm3Hc7b/mQkfhkOhLaJpX.hQmI1PTl0qqD7I4F2vV9UOna');
-
 -- --------------------------------------------------------
 
 --

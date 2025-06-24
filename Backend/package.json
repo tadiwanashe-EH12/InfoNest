@@ -1,0 +1,18 @@
+{
+  "name": "infonest-backend",
+  "version": "1.0.0",
+  "main": "server.js",  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node seeders/dataSeeder.js",
+    "seed:fresh": "node seeders/dataSeeder.js 2",
+    "seed:clear": "node seeders/dataSeeder.js 3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.3.1"
+  }
+}

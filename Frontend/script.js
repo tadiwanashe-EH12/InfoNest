@@ -1,27 +1,74 @@
-// Login Logic
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = this.email.value;
-  const password = this.password.value;
 
-  const response = await fetch('http://localhost:3000/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  });
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-  const data = await response.json();
-  if (response.ok) {
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('appSection').style.display = 'block';
-  } else {
-    alert(data.message || 'Login failed');
+  try {
+    const res = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+  const librarian = data.user;
+  sessionStorage.setItem('librarian', JSON.stringify(librarian));
+  showToast('Login successful! 🔓', '#2ecc71');
+
+  // Show the app interface and dashboard
+  document.getElementById('loginSection').style.display = 'none';
+  document.getElementById('appSection').style.display = 'flex'; // or 'block' depending on your CSS
+  document.getElementById('dashboardSection').style.display = 'block';
+
+  const greetings = [
+  `👋 Hello, ${librarian.name}! Ready for another productive day?`,
+  `📚 Welcome back, ${librarian.name}! Let’s make InfoNest shine.`,
+  `🕵️‍♀️ Greetings, Chief Curator ${librarian.name}!`,
+  `🌟 ${librarian.name}, your knowledge empire awaits.`
+];
+document.getElementById('librarianName').textContent = greetings[Math.floor(Math.random() * greetings.length)];
+
+}
+
+    else {
+      showToast(data.message || 'Login failed', '#e74c3c');
+    }
+  } catch (err) {
+    showToast('Server error. Please try again later.', '#e74c3c');
   }
 });
+
 document.getElementById('memberHistorySelect').addEventListener('change', function () {
   const memberId = this.value;
   if (memberId) loadMemberHistory(memberId);
 });
+
+function showSection(sectionId) {
+  const sections = [
+    'dashboardSection',
+    'membersSection',
+    'booksSection',
+    'lendingSection',
+    'finesSection',
+    'reportsSection'
+  ];
+
+  sections.forEach(id => {
+    document.getElementById(id).style.display = (id === sectionId + 'Section') ? 'block' : 'none';
+  });
+
+  // Optional: Update active class on sidebar
+  document.querySelectorAll('.sidebar a').forEach(link => {
+    link.classList.remove('active');
+  });
+  const activeLink = Array.from(document.querySelectorAll('.sidebar a'))
+    .find(link => link.getAttribute('onclick')?.includes(sectionId));
+  if (activeLink) activeLink.classList.add('active');
+}
+
 
 async function loadMembers() {
   try {
@@ -48,31 +95,62 @@ async function loadMembers() {
 }
 
 // Navigation
-function showSection(section) {
-  document.getElementById('dashboardSection').style.display = 'none';
-  document.getElementById('membersSection').style.display = 'none';
-  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+async function viewCopies(bookId, title) {
+  try {
+    const res = await fetch(`http://localhost:3000/api/copies/book/${bookId}`);
+    const copies = await res.json();
 
-  if (section === 'dashboard') {
-    document.getElementById('dashboardSection').style.display = 'block';
-    document.querySelectorAll('.sidebar a')[0].classList.add('active');
-  } 
-  if (sectionId === 'members') {
-  loadMembers();
-}
-if (sectionId === 'reports') {
-  loadOverdueLoans();
-  loadUnpaidFines();
-}
-if (sectionId === 'reports') {
-  loadOverdueLoans();
-  loadUnpaidFines();
-  loadMemberDropdown(); // ← Add this
-}
+    document.getElementById('copyBookTitle').textContent = `Copies of "${title}"`;
+    const container = document.getElementById('copyList');
+    container.innerHTML = '';
 
-else if (section === 'members') {
-    document.getElementById('membersSection').style.display = 'block';
-    document.querySelectorAll('.sidebar a')[1].classList.add('active');
+    copies.forEach(copy => {
+      const statusColor = {
+        'Available': '#2ecc71',
+        'Borrowed': '#e67e22',
+        'Lost': '#e74c3c'
+      }[copy.status] || '#999';
+
+      const card = document.createElement('div');
+      card.className = 'copy-card';
+      card.innerHTML = `
+        <p><strong>Barcode:</strong> ${copy.barcode}</p>
+        <p><strong>Status:</strong> <span style="color:${statusColor}">${copy.status}</span></p>
+      `;
+
+      const select = document.createElement('select');
+      ['Available', 'Borrowed', 'Lost'].forEach(status => {
+        const option = document.createElement('option');
+        option.value = status;
+        option.textContent = status;
+        if (copy.status === status) option.selected = true;
+        select.appendChild(option);
+      });
+
+      select.addEventListener('change', async function () {
+        try {
+          const res = await fetch(`http://localhost:3000/api/copies/${copy.id}/status`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: this.value })
+          });
+
+          if (res.ok) {
+            showToast('Copy status updated ✅', '#0072ff');
+            viewCopies(bookId, title); // Refresh view
+          }
+        } catch (err) {
+          console.error('Status update failed:', err);
+        }
+      });
+
+      card.appendChild(select);
+      container.appendChild(card);
+    });
+
+    document.getElementById('copySection').style.display = 'block';
+  } catch (err) {
+    console.error('Failed to load copies:', err);
   }
 }
 
@@ -125,20 +203,6 @@ document.getElementById('memberForm').addEventListener('submit', async function(
     console.error(err);
   }
 });
-
-function showSection(section) {
-  const sections = ['dashboard', 'members', 'books', 'lending'];
-  sections.forEach(id => {
-    document.getElementById(`${id}Section`).style.display = 'none';
-  });
-
-  document.getElementById(`${section}Section`).style.display = 'block';
-  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-  const index = sections.indexOf(section);
-  if (index !== -1) {
-    document.querySelectorAll('.sidebar a')[index].classList.add('active');
-  }
-}
 
 // Book Management
 document.getElementById('bookForm').addEventListener('submit', function (e) {
@@ -502,9 +566,9 @@ function showToast(message, bg = '#222') {
   div.textContent = message;
   toast.appendChild(div);
 
-  showToast('Member updated! 🎉', '#0072ff');
-showToast('Fine recorded', '#f39c12');
-showToast('Book returned 📘', '#2ecc71');
+//   showToast('Member updated! 🎉', '#0072ff');
+// showToast('Fine recorded', '#f39c12');
+// showToast('Book returned 📘', '#2ecc71');
 
   setTimeout(() => {
     div.style.opacity = 0;
